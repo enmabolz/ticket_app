@@ -4,6 +4,7 @@ class Users(db.Model):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String(length=30), nullable=False)
     lastname = db.Column(db.String(length=30), nullable=False)
+    birthdate = db.Column(db.DateTime(), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False)
     email = db.Column(db.String(length=30))
     username = db.Column(db.String(length=50), nullable=False)
