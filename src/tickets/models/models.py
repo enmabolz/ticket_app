@@ -28,5 +28,6 @@ class EntriesOfTickects(db.Model):
     initialdate = db.Column(db.DateTime(), nullable=False)
     enddate = db.Column(db.DateTime(), nullable=False)
     status = db.Column(db.String(length=50), nullable=False)
+    id_ticket = db.Column(db.Integer(), nullable=False)
 
 
