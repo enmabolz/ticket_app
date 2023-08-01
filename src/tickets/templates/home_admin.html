@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home Admin
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">SEQUENCE NUMBER</th>
+        <th scope="col">DESCRIPTION</th>
+        <th scope="col">START DATE</th>
+        <th scope="col">END DATE</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">DURATION IN DAYS</th>
+        <th scope="col">USER</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ticket in tickets %}
+      <tr>
+        <td><b>{{ ticket.number_of_secuence }}</b></td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.initialdate }}</td>
+        <td>{{ ticket.enddate }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.duration_in_days }}</td>
+        <td>{{ ticket.user_id }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
