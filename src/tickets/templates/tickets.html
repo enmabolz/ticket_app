@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<table class="table">
+<table class="table table-hover table-info">
     <thead>
       <tr>
-        <th scope="col">SEQUENCE NUMBER</th>
+        <th scope="col">#</th>
         <th scope="col">DESCRIPTION</th>
         <th scope="col">START DATE</th>
         <th scope="col">END DATE</th>
         <th scope="col">STATUS</th>
         <th scope="col">DURATION IN DAYS</th>
         <th scope="col">USER</th>
+        <th scope="col">ACTIONS</th>
       </tr>
     </thead>
     <tbody>
-      {% for ticket in tickets %}
+      {% for ticket, user in tickets %}
       <tr>
         <td><b>{{ ticket.number_of_secuence }}</b></td>
         <td>{{ ticket.description }}</td>
@@ -26,7 +27,10 @@
         <td>{{ ticket.enddate }}</td>
         <td>{{ ticket.status }}</td>
         <td>{{ ticket.duration_in_days }}</td>
-        <td>{{ ticket.user_id }}</td>
+        <td>{{ user.username }}</td>
+        <td>
+          <a class="btn btn-outline btn-info">More Info</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

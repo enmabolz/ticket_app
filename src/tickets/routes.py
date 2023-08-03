@@ -11,39 +11,58 @@ def login():
     form = LoginForm()
     return render_template("login.html", form=form)
 
+
 @app.route("/register")
 def register_user():
     form = RegisterForm()
+
+    user1 = Users(
+        name = "Enmanuel",
+        lastname = "Bolzonello",
+        birthdate = datetime.today(),
+        is_admin = True,
+        email = "enm@gmail.com",
+        username = "enmabolz", 
+        password = "tejnejenjee888jn",
+    )
+
+    user2 = Users(
+        name = "Enma",
+        lastname = "Bolzo",
+        birthdate = datetime.today(),
+        is_admin = True,
+        email = "enym@gmail.com",
+        username = "enmabolz", 
+        password = "tejnejenje76888kkl",
+    )
+
+    user3 = Users(
+        name = "Julio",
+        lastname = "Ramirez",
+        birthdate = datetime.today(),
+        is_admin = True,
+        email = "enmt@gmail.com",
+        username = "enmabolz", 
+        password = "tejnejijkjijiuonjbhjbkkl",
+    )
+
+    db.session.add(user1)
+    db.session.add(user2)
+    db.session.add(user3)
+    db.session.commit()
+
     return render_template('register_user.html', form=form)
 
 
-@app.route("/home/admin")
-def home_admin_user():
+@app.route("/all/tickets")
+def show_all_tickets():
+    tickets_user_data = db.session.query(Tickets, Users).filter(Users.id == Tickets.user_id).all()
 
-    record = Tickets(
-        number_of_secuence = 1,
-        description = "jonjkfnjk kewmfjklfklf ikejkfnjkf",
-        enddate = None,
-        status = "In Progress",
-        duration_in_days = None,
-        user_id = 1,
-    )
-
-    record1 = Tickets(
-        number_of_secuence = 1,
-        description = "jonjkfnjk kewmfjklfklf ikejkfnjkf",
-        enddate = None,
-        status = "In Progress",
-        duration_in_days = None,
-        user_id = 1,
-    )
-
-    db.session.add(record)
-    db.session.add(record1)
-    db.session.commit()
+    return render_template('tickets.html', tickets=tickets_user_data, bar_included=True)
 
 
+@app.route("/tickets/<user_id>")
+def show_tickets_per_user(user_id):
+    tickets = Tickets.query.filter_by(user_id)
 
-    tickets_data = Tickets.query.all()
-    print(tickets_data)
-    return render_template('home_admin.html', tickets=tickets_data)
+
