@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField
-from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
+from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo, InputRequired
 from tickets.models.models import Users
+
 
 class LoginForm(FlaskForm):
     username = StringField(validators=[DataRequired(), Length(min=1, max=20)])
@@ -12,7 +13,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     name = StringField(validators=[DataRequired()])
     lastname = StringField(validators=[DataRequired()])
-    birthdate = DateField(validators=[DataRequired()], format='%m/%d/%Y')
+    birthdate = DateField(validators=[InputRequired()], format='%Y-%m-%d')
     is_admin = BooleanField(validators=[DataRequired()])
     email = StringField(validators=[DataRequired(), Email()])
     password = PasswordField(validators=[DataRequired()])
@@ -20,5 +21,5 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label="Register")
 
     def validate_email(self, email_to_check):
-        if Users.query.filter(email=email_to_check.data).first():
+        if Users.query.filter_by(email=email_to_check.data).first():
             raise ValidationError("Email already exist. Please try another one")

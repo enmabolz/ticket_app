@@ -1,5 +1,6 @@
-from tickets import db
+from tickets import db, bcrypt
 from datetime import datetime
+ 
 
 class Users(db.Model):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
@@ -9,7 +10,17 @@ class Users(db.Model):
     is_admin = db.Column(db.Boolean, nullable=False)
     email = db.Column(db.String(length=30))
     username = db.Column(db.String(length=50), nullable=False)
-    password = db.Column(db.String(length=500), nullable=False)
+    password_hash = db.Column(db.String(length=500), nullable=False)
+
+    @property
+    def password(self):
+        return self.password
+    
+    @password.setter
+    def password(self, plain_password):
+        self.password_hash = bcrypt.generate_password_hash(plain_password).decode('utf-8')     
+    
+
 
 
 class Tickets(db.Model):
