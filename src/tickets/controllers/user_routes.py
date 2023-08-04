@@ -5,6 +5,13 @@ from datetime import datetime
 from tickets import db
 
 
+@app.route("/show/users")
+def show_users():
+    users = Users.query.all()
+
+    return render_template("users.html", users=users, bar_included=True)
+
+
 @app.route("/")
 def login():
     db.create_all()
