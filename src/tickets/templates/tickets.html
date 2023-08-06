@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home Admin
+    Tickets
 {% endblock %}
 
 {% block content %}
@@ -31,7 +31,7 @@
           <td>{{ ticket.duration_in_days }}</td>
           <td>{{ user.username }}</td>
           <td>
-            <a class="btn btn-outline">MORE INFO</a>
+            <a class="btn btn-outline" href="{{ url_for('show_ticket_details', ticket_id=ticket.id) }}">MORE INFO</a>
           </td>
         </tr>
         {% endfor %}

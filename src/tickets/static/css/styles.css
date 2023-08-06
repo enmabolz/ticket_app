@@ -49,3 +49,10 @@ body {
      word-wrap: break-word;
 }
 
+.ticket-details {
+    max-width: 800px;
+    background-color: #75C2F6;
+    padding: 2%;
+    margin: 150px auto; 
+}
+

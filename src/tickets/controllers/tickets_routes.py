@@ -1,5 +1,5 @@
 from tickets import app, db
-from tickets.models.models import Tickets, Users
+from tickets.models.models import Tickets, Users, EntriesOfTickects
 from tickets.models.forms import CreateTicket
 from flask import render_template, redirect, url_for, flash
 
@@ -18,7 +18,11 @@ def create_ticket():
     form.user.choices=users
 
     if form.validate_on_submit():
-        last_number_of_secuence = Tickets.query.with_entities(Tickets.number_of_secuence).order_by(Tickets.number_of_secuence.desc()).first()[0]
+        if Tickets.query.all():
+            last_number_of_secuence = Tickets.query.with_entities(Tickets.number_of_secuence).order_by(Tickets.number_of_secuence.desc()).first()[0]
+        else:
+            last_number_of_secuence = 0
+        
         assigned_user_id = Users.query.filter_by(username=form.user.data).first().id
 
         ticket = Tickets(
@@ -39,6 +43,25 @@ def create_ticket():
 
     return render_template('create_ticket.html', form=form, bar_included=True)
 
+
+@app.route("/ticket/<ticket_id>", methods=["GET", "POST"])
+def show_ticket_details(ticket_id):
+    ticket = Tickets.query.get(ticket_id)
+
+    if ticket:
+        user_of_ticket = Users.query.get(ticket.user_id)
+        entries_of_ticket = EntriesOfTickects.query.filter_by(ticket_id=ticket_id).all()
+    else:
+        user_of_ticket = []
+        entries_of_ticket = []
+    
+    return render_template(
+        "show_ticket_details.html", 
+        ticket=ticket, 
+        user_of_ticket=user_of_ticket, 
+        entries_of_ticket=entries_of_ticket,
+        bar_included=True
+    )
 
 
 @app.route("/tickets/<user_id>")
