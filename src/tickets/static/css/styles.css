@@ -20,3 +20,32 @@ body {
 .navbar {
     background-color: #75C2F6;
 }
+
+.table tbody tr td.no-data-available {
+    background-color: #1D5D9B;
+    color: white;
+    font-weight: bold;
+}
+
+.table thead th {
+    background-color: #F4D160;
+}
+
+.table tbody tr td {
+    background-color: white;
+}
+
+.table tbody tr td a {
+    background-color: white;
+    font-weight: bold;
+}
+
+.table tbody tr td a:hover {
+    background-color: #75C2F6;
+}
+
+.table tbody tr td {
+     max-width: 40ch;
+     word-wrap: break-word;
+}
+

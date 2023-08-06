@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Ticket
+{% endblock %}
+
+{% block content %}
+<div class="register-part text-center">
+    <form method="post" novalidate>
+        <h3>Creating a ticket</h3>
+        <br>
+        {{ form.hidden_tag() }}
+        {{ form.description(class="form-control", placeholder="Description of the Ticket") }}
+        <br>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label"><b>Assign to User:</b></label>
+            {{ form.user(class="form-select") }}
+        </div>
+        
+        <br>
+        <div class="d-grid">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}   

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-<table class="table table-hover table-info">
-    <thead>
+<table class="table table-hover">
+    <thead class="text-center">
       <tr>
         <th scope="col">#</th>
         <th scope="col">DESCRIPTION</th>
@@ -18,21 +18,28 @@
         <th scope="col">ACTIONS</th>
       </tr>
     </thead>
+    
     <tbody>
-      {% for ticket, user in tickets %}
+      {% if tickets %}
+        {% for ticket, user in tickets %}
+        <tr class="text-center align-middle">
+          <td><b>{{ ticket.number_of_secuence }}</b></td>
+          <td class="text-start">{{ ticket.description }}</td>
+          <td>{{ ticket.initialdate }}</td>
+          <td>{{ ticket.enddate }}</td>
+          <td>{{ ticket.status }}</td>
+          <td>{{ ticket.duration_in_days }}</td>
+          <td>{{ user.username }}</td>
+          <td>
+            <a class="btn btn-outline">MORE INFO</a>
+          </td>
+        </tr>
+        {% endfor %}
+      {% else %}
       <tr>
-        <td><b>{{ ticket.number_of_secuence }}</b></td>
-        <td>{{ ticket.description }}</td>
-        <td>{{ ticket.initialdate }}</td>
-        <td>{{ ticket.enddate }}</td>
-        <td>{{ ticket.status }}</td>
-        <td>{{ ticket.duration_in_days }}</td>
-        <td>{{ user.username }}</td>
-        <td>
-          <a class="btn btn-outline btn-info">More Info</a>
-        </td>
+        <td colspan="8" class="text-center no-data-available">No Data Available</td>
       </tr>
-      {% endfor %}
+      {% endif %}
     </tbody>
   </table>
 {% endblock %}

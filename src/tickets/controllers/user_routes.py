@@ -1,15 +1,8 @@
 from tickets import app
 from tickets.models.forms import RegisterForm, LoginForm, Users
-from flask import render_template, flash
+from flask import render_template, flash, redirect, url_for
 from datetime import datetime
 from tickets import db
-
-
-@app.route("/show/users")
-def show_users():
-    users = Users.query.all()
-
-    return render_template("users.html", users=users, bar_included=True)
 
 
 @app.route("/")
@@ -18,6 +11,13 @@ def login():
     print(str(datetime.now))
     form = LoginForm()
     return render_template("login.html", form=form)
+
+
+@app.route("/show/users")
+def show_users():
+    users = Users.query.all()
+
+    return render_template("users.html", users=users, bar_included=True)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -38,7 +38,7 @@ def register_user():
         db.session.add(user)
         db.session.commit()
                 
-        return "<h1>Hello</h1>"
+        return redirect(url_for('show_users'))
     
     if form.errors != {}:
         for key, message in form.errors.items():
@@ -47,15 +47,13 @@ def register_user():
     
     return render_template('register_user.html', form=form, bar_included=True)
 
-
     
 def create_username(name, lastname):
-    attempted_user = f'{name.lower()}.{lastname.lower()}'
+    attempted_user = f'{name.lower().replace(" ", "")}.{lastname.lower().replace(" ", "")}'
     contador = -1
 
     while True:
         if Users.query.filter_by(username=attempted_user).first():
-            print(attempted_user)
             contador += 1
             attempted_user = f'{name.lower()}.{lastname.lower()}{contador}'
         else:
