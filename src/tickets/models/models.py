@@ -23,7 +23,7 @@ class Users(db.Model):
 
 class Tickets(db.Model):
     id = db.Column(db.Integer(), nullable=False, primary_key=True, autoincrement=True)
-    number_of_secuence = db.Column(db.Integer(), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(length=500), nullable=False)
     initialdate = db.Column(db.DateTime, nullable=False, default=datetime.today())
     enddate = db.Column(db.DateTime)
@@ -34,7 +34,7 @@ class Tickets(db.Model):
 
 class EntriesOfTickects(db.Model):
     id = db.Column(db.Integer(), nullable=False, primary_key=True, autoincrement=True)
-    number_of_secuence = db.Column(db.Integer(), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     initialdate = db.Column(db.DateTime, nullable=False, default=datetime.today())
     enddate = db.Column(db.DateTime, nullable=False)

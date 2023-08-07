@@ -18,15 +18,11 @@ def create_ticket():
     form.user.choices=users
 
     if form.validate_on_submit():
-        if Tickets.query.all():
-            last_number_of_secuence = Tickets.query.with_entities(Tickets.number_of_secuence).order_by(Tickets.number_of_secuence.desc()).first()[0]
-        else:
-            last_number_of_secuence = 0
         
         assigned_user_id = Users.query.filter_by(username=form.user.data).first().id
 
         ticket = Tickets(
-            number_of_secuence = last_number_of_secuence + 1,
+            name = form.name.data,
             description = form.description.data,
             user_id = assigned_user_id
         )
@@ -62,11 +58,6 @@ def show_ticket_details(ticket_id):
         entries_of_ticket=entries_of_ticket,
         bar_included=True
     )
-
-
-@app.route("/tickets/<user_id>")
-def show_tickets_per_user(user_id):
-    tickets = Tickets.query.filter_by(user_id)
     
 
 

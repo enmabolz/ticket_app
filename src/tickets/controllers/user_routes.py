@@ -3,6 +3,7 @@ from tickets.models.forms import RegisterForm, LoginForm, Users
 from flask import render_template, flash, redirect, url_for
 from datetime import datetime
 from tickets import db
+from tickets.models.models import Users, Tickets
 
 
 @app.route("/")
@@ -61,3 +62,15 @@ def create_username(name, lastname):
     
     return attempted_user
         
+
+@app.route("/user/<user_id>", methods=["GET", "POST"])
+def show_user(user_id):
+    user = Users.query.get(user_id)
+    tickets = Tickets.query.filter_by(user_id=user_id).all()
+
+    return render_template(
+        "user_details.html", 
+        user=user, 
+        tickets=tickets, 
+        bar_included=True
+    )

@@ -26,8 +26,16 @@ class RegisterForm(FlaskForm):
         
 
 class CreateTicket(FlaskForm):
+    name = StringField(validators=[DataRequired()])
     description = TextAreaField(validators=[DataRequired()])
     user = SelectField(validators=[DataRequired()])
     submit = SubmitField(label="Create Ticket")
+
+
+class CreateEntryOfTicket(FlaskForm):
+    name = StringField(validators=[DataRequired()])
+    description = StringField(validators=[DataRequired()])
+    submit = SubmitField(label="Create")
+
 
    

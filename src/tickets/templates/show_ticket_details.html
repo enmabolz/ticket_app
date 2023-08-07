@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="text-center details">
   {% if ticket %}
-  <div class="container text-center ticket-details">
+  <div class="container text-center">
     <table class="table text-center">
-      <h5>Ticket Details:</h5>
+      <h5><b>Ticket Details:</b></h5>
       <tbody>
         <tr>
-          <td><b>NUMBER OF SECUENCE:</b></td>
-          <td>{{ ticket.number_of_secuence }}</td>
+          <td><b>NAME:</b></td>
+          <td>{{ ticket.name }}</td>
       
           <td><b>STATUS:</b></td>
           <td>{{ ticket.status }}</td>
@@ -45,7 +45,7 @@
       <h5>Ticket Details:</h5>
       <tbody>
         <tr>
-          <td><b>NUMBER OF SECUENCE:</b></td>
+          <td><b>NAME:</b></td>
           <td>No Data Available</td>
       
           <td><b>STATUS:</b></td>
@@ -73,10 +73,11 @@
     </table>
   </div>
   {% endif %}
-  
+  <br>
+  <h5>Entries of Ticket</h5>
   <table class="table text-center">
     <thead>
-      <th>#</th>
+      <th>NAME</th>
       <th>DESCRIPTION</th>
       <th>FROM:</th>
       <th>TO:</th>
@@ -87,7 +88,7 @@
       {% if entries_of_ticket %}
         {% for entry in entries_of_ticket %}
         <tr>
-          <td>{{ entry.number_of_secuence }}</td>
+          <td>{{ entry.name }}</td>
           <td class="text-start">{{ entry.description }}</td>
           <td>{{ entry.initialdate }}</td>
           <td>{{ entry.enddate }}</td>
