@@ -34,7 +34,7 @@ class CreateTicket(FlaskForm):
 
 class CreateEntryOfTicket(FlaskForm):
     name = StringField(validators=[DataRequired()])
-    description = StringField(validators=[DataRequired()])
+    description = TextAreaField(validators=[DataRequired()])
     submit = SubmitField(label="Create")
 
 

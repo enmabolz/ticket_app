@@ -15,7 +15,13 @@ def show_all_tickets():
 def create_ticket():
     form = CreateTicket()
     users = [user[0] for user in Users.query.with_entities(Users.username).all()]
+    
+    if not users:
+         flash("Error!! No user created", category="danger")
+         return redirect(url_for('show_all_tickets'))
+    
     form.user.choices=users
+    
 
     if form.validate_on_submit():
         
@@ -29,6 +35,7 @@ def create_ticket():
 
         db.session.add(ticket)
         db.session.commit()
+        flash(f"Ticket {ticket.name} created", category="success")
 
         return redirect(url_for('show_all_tickets'))
     
@@ -60,9 +67,12 @@ def show_ticket_details(ticket_id):
     )
     
 
+@app.route("/tickets/user/<used_id>")
+def show_tickets_per_user(user_id):
+    tickets = Tickets.query.filter_by(user_id=user_id).all()
 
 
-
+    
 
     
 

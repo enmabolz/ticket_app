@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Entry
+{% endblock %}
+
+{% block content %}
+<div class="text-center create-entry">
+    <h4>Create Entry of Ticket:</h4>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.name(class='form-control', placeholder='Name') }}
+        <br>
+        {{ form.description(class='form-control', placeholder='Description') }}        
+        <br>
+
+        <div class="d-grid">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

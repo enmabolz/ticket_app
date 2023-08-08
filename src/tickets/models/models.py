@@ -37,8 +37,8 @@ class EntriesOfTickects(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     initialdate = db.Column(db.DateTime, nullable=False, default=datetime.today())
-    enddate = db.Column(db.DateTime, nullable=False)
-    status = db.Column(db.String(length=50), nullable=False)
+    enddate = db.Column(db.DateTime)
+    status = db.Column(db.String(length=50), nullable=False, default="Created")
     duration_in_days = db.Column(db.Integer())
     ticket_id = db.Column(db.Integer(), nullable=False)
     

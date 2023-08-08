@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 
 import tickets.controllers.user_routes
 import tickets.controllers.tickets_routes
+import tickets.controllers.entries_of_tickets_routes
 
 
 

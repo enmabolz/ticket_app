@@ -10,7 +10,7 @@ body {
 }
 
 
-.register-part {
+.register-part, .create-entry {
     background-color: #75C2F6;
     max-width: 700px;
     margin: 150px auto;

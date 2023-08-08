@@ -38,6 +38,7 @@ def register_user():
     
         db.session.add(user)
         db.session.commit()
+        flash(f"User {user.username} created")
                 
         return redirect(url_for('show_users'))
     
