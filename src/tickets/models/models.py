@@ -1,8 +1,15 @@
 from tickets import db, bcrypt
 from datetime import datetime
+from flask_login import UserMixin
+from tickets import login_manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
  
 
-class Users(db.Model):
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String(length=30), nullable=False)
     lastname = db.Column(db.String(length=30), nullable=False)
@@ -18,7 +25,11 @@ class Users(db.Model):
     
     @password.setter
     def password(self, plain_password):
-        self.password_hash = bcrypt.generate_password_hash(plain_password).decode('utf-8')     
+        self.password_hash = bcrypt.generate_password_hash(plain_password).decode('utf-8')   
+
+
+    def check_password_correction(self, attemped_password):
+        return bcrypt.check_password_hash(self.password_hash, attemped_password)  
     
 
 class Tickets(db.Model):

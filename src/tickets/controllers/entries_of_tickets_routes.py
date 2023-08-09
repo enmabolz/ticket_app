@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for
 from tickets.models.forms import CreateEntryOfTicket 
 from tickets.models.models import EntriesOfTickects
 from tickets.models.models import Users, Tickets
+from flask_login import current_user
 
 
 @app.route("/create/entry/<ticket_id>", methods=["GET", "POST"])
@@ -21,4 +22,10 @@ def create_entry(ticket_id):
 
         return redirect(url_for('show_ticket_details', ticket_id=ticket_id))
 
-    return render_template("create_entry.html", ticket_id=ticket_id, form=form, bar_included=True)
+    return render_template(
+        "create_entry.html", 
+        ticket_id=ticket_id, 
+        form=form, 
+        bar_included=True,
+        is_admin=current_user.is_admin
+    )

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Tickets
+{% endblock %}
+
+{% block content %}
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">DESCRIPTION</th>
+            <th scope="col">START DATE</th>
+            <th scope="col">END DATE</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">DURATION IN DAYS</th>
+            <th scope="col">ACTIONS</th>
+          </tr>
+    </thead>
+    <tbody>
+        {% if tickets %}
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.description }}</td>
+                <td>{{ ticket.initialdate }}</td>
+                <td>{{ ticket.enddate }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.duration_in_days }}</td>
+                <td>
+                    <a class="btn btn-outline" href="{{ url_for('show_ticket_details', ticket_id=ticket.id) }}">MORE INFO</a>
+                    <a class="btn btn-outline" href="{{ url_for('edit_ticket', ticket_id=ticket.id) }}">EDIT</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr class="no-data-available" colspan="7">No Data Available</tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}
